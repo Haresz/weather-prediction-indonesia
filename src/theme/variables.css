@@ -1,2 +1,38 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+/* Tema terang — dipaksa, tidak mengikuti mode gelap sistem */
+:root {
+  color-scheme: light;
+
+  /* Palet biru langit (sky) — aksen segar di atas latar terang */
+  --ion-color-primary: #0369a1;
+  --ion-color-primary-rgb: 3, 105, 161;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #075985;
+  --ion-color-primary-tint: #0ea5e9;
+
+  --ion-color-secondary: #0ea5e9;
+  --ion-color-secondary-rgb: 14, 165, 233;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0284c7;
+  --ion-color-secondary-tint: #38bdf8;
+
+  --ion-color-success: #16a34a;
+  --ion-color-warning: #f59e0b;
+  --ion-color-danger: #dc2626;
+  --ion-color-medium: #475569;
+  --ion-color-light: #f8fafc;
+
+  /* Latar terang, teks gelap — kontras tinggi */
+  --ion-background-color: #f0f9ff;
+  --ion-background-color-rgb: 240, 249, 255;
+  --ion-text-color: #0f172a;
+  --ion-text-color-rgb: 15, 23, 42;
+
+  /* Toolbar: putih di atas biru langit */
+  --ion-toolbar-background: #0369a1;
+  --ion-toolbar-color: #ffffff;
+
+  --ion-item-background: #ffffff;
+  --ion-font-size-base: 16px;
+}
