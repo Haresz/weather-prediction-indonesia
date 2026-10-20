@@ -1,128 +1,3 @@
-<template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Prakiraan Cuaca Sumatra</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <div class="wrap">
-        <h1>Prakiraan Cuaca Sumatra</h1>
-        <p class="subtitle">Suhu udara per jam dari Open-Meteo</p>
-
-        <ion-card class="kartu">
-          <ion-card-header>
-            <ion-card-title>Filter</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="filter-grid">
-              <label class="field">
-                <span>Provinsi</span>
-                <ion-select v-model="provinsiTerpilih" interface="popover">
-                  <ion-select-option
-                    v-for="prov in provinsiList"
-                    :key="prov.nama"
-                    :value="prov.nama"
-                  >
-                    {{ prov.nama }}
-                  </ion-select-option>
-                </ion-select>
-              </label>
-              <label class="field">
-                <span>Tanggal mulai</span>
-                <input type="date" v-model="tanggalMulai" />
-              </label>
-              <label class="field">
-                <span>Tanggal akhir</span>
-                <input type="date" v-model="tanggalAkhir" />
-              </label>
-            </div>
-
-            <p v-if="pesanValidasi" class="error">{{ pesanValidasi }}</p>
-
-            <ion-button @click="ambilData" :disabled="isLoading">
-              {{ isLoading ? 'Memuat data...' : 'Tampilkan Data' }}
-            </ion-button>
-          </ion-card-content>
-        </ion-card>
-
-        <p v-if="pesanError" class="error">{{ pesanError }}</p>
-
-        <ion-card class="kartu">
-          <ion-card-header>
-            <ion-card-title>Ringkasan</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="ringkasan-grid">
-              <div class="ringkasan-item">
-                <span class="label">Lokasi</span>
-                <span class="nilai">{{ provinsiAktif.nama }}</span>
-              </div>
-              <div class="ringkasan-item">
-                <span class="label">Rentang tanggal</span>
-                <span class="nilai">{{ rentangTeks }}</span>
-              </div>
-              <div class="ringkasan-item">
-                <span class="label">Zona waktu</span>
-                <span class="nilai">{{ infoWaktuTeks }}</span>
-              </div>
-              <div class="ringkasan-item">
-                <span class="label">Suhu minimum</span>
-                <span class="nilai aksen">{{ formatSuhu(ringkasan.min) }}</span>
-              </div>
-              <div class="ringkasan-item">
-                <span class="label">Suhu maksimum</span>
-                <span class="nilai aksen">{{ formatSuhu(ringkasan.max) }}</span>
-              </div>
-              <div class="ringkasan-item">
-                <span class="label">Rata-rata</span>
-                <span class="nilai aksen">{{ formatRata(ringkasan.rata) }}</span>
-              </div>
-            </div>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card v-if="adaData" class="kartu">
-          <ion-card-header>
-            <ion-card-title>Grafik Suhu</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <suhu-chart :data="dataCuaca" />
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card v-if="adaData" class="kartu">
-          <ion-card-header>
-            <ion-card-title>Tabel Suhu</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="tabel-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Waktu</th>
-                    <th class="kolom-suhu">Suhu</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in dataCuaca" :key="item.time">
-                    <td>{{ formatWaktu(item.time) }}</td>
-                    <td class="sel-suhu" :class="kelasSuhu(item.temp)">
-                      {{ formatSuhu(item.temp) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </ion-card-content>
-        </ion-card>
-
-        <p v-if="pesanKosong" class="kosong">{{ pesanKosong }}</p>
-      </div>
-    </ion-content>
-  </ion-page>
-</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -338,6 +213,133 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <ion-page>
+    <ion-header :translucent="true">
+      <ion-toolbar>
+        <ion-title>Prakiraan Cuaca Sumatra</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <div class="wrap">
+        <h1>Prakiraan Cuaca Sumatra</h1>
+        <p class="subtitle">Suhu udara per jam dari Open-Meteo</p>
+
+        <ion-card class="kartu">
+          <ion-card-header>
+            <ion-card-title>Filter</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="filter-grid">
+              <label class="field">
+                <span>Provinsi</span>
+                <ion-select v-model="provinsiTerpilih" interface="popover">
+                  <ion-select-option
+                    v-for="prov in provinsiList"
+                    :key="prov.nama"
+                    :value="prov.nama"
+                  >
+                    {{ prov.nama }}
+                  </ion-select-option>
+                </ion-select>
+              </label>
+              <label class="field">
+                <span>Tanggal mulai</span>
+                <input type="date" v-model="tanggalMulai" />
+              </label>
+              <label class="field">
+                <span>Tanggal akhir</span>
+                <input type="date" v-model="tanggalAkhir" />
+              </label>
+            </div>
+
+            <p v-if="pesanValidasi" class="error">{{ pesanValidasi }}</p>
+
+            <ion-button @click="ambilData" :disabled="isLoading">
+              {{ isLoading ? 'Memuat data...' : 'Tampilkan Data' }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <p v-if="pesanError" class="error">{{ pesanError }}</p>
+
+        <ion-card class="kartu">
+          <ion-card-header>
+            <ion-card-title>Ringkasan</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="ringkasan-grid">
+              <div class="ringkasan-item">
+                <span class="label">Lokasi</span>
+                <span class="nilai">{{ provinsiAktif.nama }}</span>
+              </div>
+              <div class="ringkasan-item">
+                <span class="label">Rentang tanggal</span>
+                <span class="nilai">{{ rentangTeks }}</span>
+              </div>
+              <div class="ringkasan-item">
+                <span class="label">Zona waktu</span>
+                <span class="nilai">{{ infoWaktuTeks }}</span>
+              </div>
+              <div class="ringkasan-item">
+                <span class="label">Suhu minimum</span>
+                <span class="nilai aksen">{{ formatSuhu(ringkasan.min) }}</span>
+              </div>
+              <div class="ringkasan-item">
+                <span class="label">Suhu maksimum</span>
+                <span class="nilai aksen">{{ formatSuhu(ringkasan.max) }}</span>
+              </div>
+              <div class="ringkasan-item">
+                <span class="label">Rata-rata</span>
+                <span class="nilai aksen">{{ formatRata(ringkasan.rata) }}</span>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card v-if="adaData" class="kartu">
+          <ion-card-header>
+            <ion-card-title>Grafik Suhu</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <suhu-chart :data="dataCuaca" />
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card v-if="adaData" class="kartu">
+          <ion-card-header>
+            <ion-card-title>Tabel Suhu</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="tabel-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th class="kolom-suhu">Suhu</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in dataCuaca" :key="item.time">
+                    <td>{{ formatWaktu(item.time) }}</td>
+                    <td class="sel-suhu" :class="kelasSuhu(item.temp)">
+                      {{ formatSuhu(item.temp) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <p v-if="pesanKosong" class="kosong">{{ pesanKosong }}</p>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
 
 <style scoped>
 .wrap {
