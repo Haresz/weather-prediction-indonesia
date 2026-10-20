@@ -218,13 +218,13 @@ export default defineComponent({
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Prakiraan Cuaca Sumatra</ion-title>
+        <ion-title>Prakiraan Cuaca</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
       <div class="wrap">
-        <h1>Prakiraan Cuaca Sumatra</h1>
+        <h1>Prakiraan Cuaca</h1>
         <p class="subtitle">Suhu udara per jam dari Open-Meteo</p>
 
         <ion-card class="kartu">
